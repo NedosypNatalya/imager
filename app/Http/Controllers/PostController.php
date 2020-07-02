@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Posts;
 use App\User;
-use App\Http\Requests\PostRequest;
 use App\Image;
+use App\Comment;
+use App\Http\Requests\PostRequest;
 use Validator;
 use App\Exports\PostsExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -27,8 +28,12 @@ class PostController extends Controller
             $post['images'] = Image::all()->where('post_id', '=', $post->id);
             
         }
-        
         return view('posts', ['posts' => $posts]);
+    }
+
+    public function getAll(){
+        $posts = Posts::paginate(5);
+        return view('posts_all', ['posts' => $posts]);
     }
 
     public function create(){
@@ -50,7 +55,7 @@ class PostController extends Controller
                 $model->save();
             }
         }
-        return redirect()->route('posts.index');
+        return redirect()->route('my_posts.index');
     }
 
     public function show($id)
@@ -60,7 +65,18 @@ class PostController extends Controller
             return 'Post not found.';
         }
         $post['images'] = Image::all()->where('post_id', '=', $post->id);
+        $post['comments'] = $post->comments;
         return view('formEditPost', ['post' => $post]);
+    }
+
+    public function showPost($id){
+        $post = Posts::find($id);
+        if (is_null($post)) {
+            return 'Post not found.';
+        }
+        $post['images'] = Image::all()->where('post_id', '=', $post->id);
+        $post['comments'] = Comment::all()->where('post_id', '=', $post->id);
+        return view('post', ['post' => $post]);
     }
 
     public function update(Request $request)
@@ -90,6 +106,7 @@ class PostController extends Controller
         $post->content = $input['content'];
         $post->save();
         $post['images'] = Image::all()->where('post_id', '=', $post->id);
+        //$post['comments'] = $post->comments;//Comment::all()->where('post_id', '=', $post->id);
         return view('formEditPost', ['message' => 'Изменения сохранены', 'post' => $post]);
     }
 
@@ -97,13 +114,13 @@ class PostController extends Controller
     {
         $post = Posts::find($id);
         $post->delete();
-        return redirect()->route('posts.index');
+        return redirect()->route('my_posts.index');
     }
 
     public function imageDelete($post_id, $image_id){
         $image = Image::find($image_id);
         $image->delete();
-        return redirect()->route('posts.show', ['post' => $post_id]);
+        return redirect()->route('my_posts.show', ['my_post' => $post_id]);
     }
 
     public function exportExcel(){

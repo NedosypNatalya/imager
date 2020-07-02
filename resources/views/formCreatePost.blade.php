@@ -14,7 +14,7 @@
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
             <h3>Создание поста</h3>
         </div>
-        <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('my_posts.store') }}" enctype="multipart/form-data">
             <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <div class="form-group">
                 <label for="title">Заголовок</label>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 use Closure;
 
@@ -15,6 +16,9 @@ class AuthWeb
      */
     public function handle($request, Closure $next)
     {
+        if (empty($request)) {
+            return route('login_form');
+        }
         return $next($request);
     }
 }

@@ -19,7 +19,7 @@
             {{ $message }}
         </div>
         @endif
-        <form id="update" method="post" action="{{ route('posts.update', ['post' => $post->id]) }}" enctype="multipart/form-data">
+        <form id="update" method="post" action="{{ route('my_posts.update', ['my_post' => $post->id]) }}" enctype="multipart/form-data">
             <input name="_token" type="hidden" value="{{ csrf_token() }}">
             @method('PUT')
             <div class="form-group">
@@ -37,17 +37,45 @@
             <input type="hidden" name="id" value="{{$post->id}}">
             <button class="btn btn-primary" type="submit">Сохранить</button>
         </form>
-        <form id="delete" method="post" action="{{route('posts.destroy', ['post' => $post->id])}}">
+        <form id="delete" method="post" action="{{route('my_posts.destroy', ['my_post' => $post->id])}}">
             @method('DELETE')
             <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <button class="btn btn-danger" type="submit">Удалить пост</button>
         </form>
         @foreach($post['images'] as $image)
             <img width="100px" src="../storage/images/{{$post->id}}/{{$image->title}}" alt="{{$image->title}}">
-            <form method="get" action="{{route('image_delete', ['post' => $post->id, 'image' => $image->id])}}">
+            <form method="get" action="{{route('image_delete', ['my_post' => $post->id, 'image' => $image->id])}}">
                 <input class="btn btn-outline-danger" type="submit" value="Удалить">
             </form>
         @endforeach
+        <form id="form-add-comment" method="post" action="{{ route('comment.store') }}">
+            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <label for="text">Комментарий</label>
+                <textarea class="form-control" name="text" id="text" cols="30" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <input post-id="{{ $post->id }}" id="store-comment-edit-post" class="btn btn-primary" type="submit" value="Оставить комментарий">
+            </div>
+        </form>
+        <div id="comments-block">
+            @foreach($post['comments'] as $comment)
+                <div class="alert alert-secondary" role="alert">
+                    <a href="#" class="alert-link">{{ $comment->user->name }}</a>{{ $comment->text }}
+                        @if($comment->user_id == $post->user_id)
+                            <form method="get" action="{{route('comment.edit', ['comment' => $comment->id])}}">
+                                <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                                <input class="btn btn-outline-primary" type="submit" value="Изменить">
+                            </form>
+                        @endif
+                        <form method="post" action="{{route('comment.destroy', ['comment' => $comment->id])}}">
+                            @method('DELETE')
+                            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                            <input class="btn btn-outline-danger" type="submit" value="Удалить">
+                        </form>
+                </div>
+            @endforeach
+        </div>
     </div>
 
 @endsection
