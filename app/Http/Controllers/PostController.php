@@ -113,18 +113,10 @@ class PostController extends Controller
         return Excel::download(new PostsExport, 'posts.csv', \Maatwebsite\Excel\Excel::CSV);
     }
     public function exportXML(){
-        $posts = Posts::all()->where('user_id', '=', Auth::user()->id)->toArray();
-        //$result = ArrayToXml::convert(['__numeric' => $posts]);
+        $user_id = Auth::user()->id;
+        $posts = Posts::all()->where('user_id', '=', $user_id)->toArray();
         $formatter = Formatter::make($posts, Formatter::XML);
-        //$export = var_export($formatter->toXml());
-        // $export = var_export($formatter->toArray());
-        // dd($formatter->toXml());
-        // return var_export($formatter->toXml());\
-        // Storage::putFile($formatter, new File('app/public/files/posts.xml'), 'posts.xml');
-        Storage::put("app/public/files/posts.xml", $formatter);
-        return response()->download(/*storage_path(*/'app/public/files/'/*)*/.'posts.xml')->deleteFileAfterSend();
-        //return Response::download($formatter->toXml(), 'export.xml', ['Content-Type: text/xml']);
-
-      
+        Storage::disk('local')->put('posts-'.$user_id.'.xml', $formatter->toXml());
+        return response()->download(storage_path('app/posts-').$user_id.'.xml')->deleteFileAfterSend();
     }
 }
