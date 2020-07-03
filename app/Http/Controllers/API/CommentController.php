@@ -5,8 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Posts;
+use App\Post;
 use App\Comment;
+use App\User;
 use Validator;
 
 class CommentController extends BaseController
@@ -22,7 +23,7 @@ class CommentController extends BaseController
      * Просмотр комментариев определённого поста
      */
     public function showCommentsSinglePost($post_id){
-        $comments = Posts::find($post_id)->comments;
+        $comments = Post::find($post_id)->comments;
         return $this->sendResponse($comments->toArray(), 'Comments of post - '.$post_id.' retrieved successfully.');
     }
 
@@ -40,7 +41,9 @@ class CommentController extends BaseController
         }
         $comment->text = $data['text'];
         $comment->post_id = $post_id;
-        $comment->user_id = Auth::user()->id;
+        $comment->user()->associate(Auth::user());
+
+        //  $comment->user = Auth::user()->id;//->associate(Auth::user()->id);
         $comment->save();
         return $this->sendResponse($comment->toArray(), 'Comment created successfully.');
     }
@@ -57,7 +60,7 @@ class CommentController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
-        if($comment->user_id != Auth::user()->id){
+        if($comment->user->id != Auth::user()->id){
             return $this->sendError('Нельзя изменить чужой комментарий.');
         }
         $comment->text = $data['text'];
@@ -70,7 +73,7 @@ class CommentController extends BaseController
      */
     public function destroy($post_id, $comment_id){
         $comment = Comment::find($comment_id);
-        if($comment->user_id != Auth::user()->id){
+        if($comment->user->id != Auth::user()->id){
             return $this->sendError('Нельзя удалить чужой комментарий.');
         }
         $comment->delete();

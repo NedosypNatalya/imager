@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Posts;
+use App\Post;
 use App\User;
 use App\Image;
 use App\Comment;
@@ -21,7 +21,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Posts::all()->where('user_id', '=', Auth::user()->id);
+        $posts = Post::all()->where('user_id', '=', Auth::user()->id);
         foreach ($posts as $post) {
             $post['images'] = Image::all()->where('post_id', '=', $post->id);
             
@@ -30,7 +30,7 @@ class PostController extends Controller
     }
 
     public function getAll(){
-        $posts = Posts::paginate(5);
+        $posts = Post::paginate(5);
         return view('posts_all', ['posts' => $posts]);
     }
 
@@ -41,7 +41,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $post = Posts::create($input);
+        $post = Post::create($input);
         $id_post = $post['id'];
         foreach ($request->file() as $file) {
             foreach ($file as $f) {
@@ -58,7 +58,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Posts::find($id);
+        $post = Post::find($id);
         if (is_null($post)) {
             return 'Post not found.';
         }
@@ -68,7 +68,7 @@ class PostController extends Controller
     }
 
     public function showPost($id){
-        $post = Posts::find($id);
+        $post = Post::find($id);
         if (is_null($post)) {
             return 'Post not found.';
         }
@@ -87,7 +87,7 @@ class PostController extends Controller
         if($validator->fails()){
             return 'Validation Error.'.$validator->errors();       
         }
-        $post = (new Posts)->find($input['id']);
+        $post = (new Post)->find($input['id']);
         $id_post = $post['id'];
         foreach ($request->file() as $file) {
             foreach ($file as $f) {
@@ -110,7 +110,7 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-        $post = Posts::find($id);
+        $post = Post::find($id);
         $post->delete();
         return redirect()->route('my_posts.index');
     }
@@ -129,7 +129,7 @@ class PostController extends Controller
     }
     public function exportXML(){
         $user_id = Auth::user()->id;
-        $posts = Posts::all()->where('user_id', '=', $user_id)->toArray();
+        $posts = Post::all()->where('user_id', '=', $user_id)->toArray();
         $formatter = Formatter::make($posts, Formatter::XML);
         Storage::disk('local')->put('posts-'.$user_id.'.xml', $formatter->toXml());
         return response()->download(storage_path('app/posts-').$user_id.'.xml')->deleteFileAfterSend();

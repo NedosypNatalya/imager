@@ -18,16 +18,8 @@ Route::get('/', function () {
     return view('index');
 })->name('main');
 
-/*Route::middleware('myauth')->group( function () {
-    Route::get('/logout', 'LogoutController@logout')->name('logout');
-    Route::get('/profile/{user}', 'FormController@profile')->name('profile_form');
-    Route::post('/profile', 'ProfileController@profileUpdate')->name('profile_update');
-});*/
-
 Route::get('/register', 'FormController@register')->name('register_form');
 Route::post('/register', 'RegisterController@register')->name('register');
-//Route::post('/register/address', 'RegisterController@setAddress');
-//Route::post('/register/email', 'RegisterController@setEmail');
 Route::post('/register/address', 'RegisterController@setData');
 Route::post('/register/email', 'RegisterController@setData');
 
@@ -49,6 +41,5 @@ Route::get('/export/scv', 'PostController@exportCSV')->name('posts.exportcsv');
 Route::get('/export/xml', 'PostController@exportXML')->name('posts.exportxml');
 
 Route::post('/comment/store', 'CommentController@store')->name('comment.store');
-//Route::delete('/comment/destroy', 'CommentController@destroy')->name('comment.destroy');
 Route::resource('/comment', 'CommentController')->except(['show', 'store']);
 Route::get('/comment/{comment}/edit', 'CommentController@edit')->name('comment.edit');

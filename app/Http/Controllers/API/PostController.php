@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
-use App\Posts;
+use App\Post;
 use App\Image;
 use Validator;
 
@@ -17,12 +17,12 @@ class PostController extends BaseController
      */
     public function index()
     {
-        $posts = Posts::all()->where('user_id', '=', Auth::user()->id);
+        $posts = Post::all()->where('user_id', '=', Auth::user()->id);
         return $this->sendResponse($posts->toArray(), 'My posts retrieved successfully.');
     }
     public function getAllPosts()
     {
-        $posts = Posts::all();
+        $posts = Post::all();
         return $this->sendResponse($posts->toArray(), 'All posts retrieved successfully.');
     }
     /**
@@ -42,7 +42,7 @@ class PostController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
-        $post = Posts::create($input);
+        $post = Post::create($input);
         $id_post = $post['id'];
         foreach ($request->file() as $file) {
             foreach ($file as $f) {
