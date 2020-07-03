@@ -5,10 +5,6 @@
 
 - /api/register - регистрация<br>
 Заголовок POST-запроса: Accept - application/json<br>
-Роут: 
-```
-    Route::post('register', 'API\RegisterController@register')->name('register_api');
-```
 Тело запроса:
 ```
     {
@@ -32,10 +28,6 @@
 ```
 
 - /api/login - авторизация<br>
-Роут: 
-```
-    Route::post('login', 'API\LoginController@login')->name('login_api');
-```
 Заголовок POST-запроса: Accept - application/json<br>
 Тело запроса:
 ```
@@ -57,10 +49,6 @@
 ```
 
 - /api/all_posts - получение списка всех постов<br>
-Роут: 
-```
-    Route::get('all_posts', 'API\PostController@getAllPosts');
-```
 Заголовок GET-запроса: Accept - application/json<br>
 Ответ:
 ```
@@ -82,10 +70,6 @@
 ```
 
 - /api/posts - получение списка постов авторизированного пользователя<br>
-Роут: 
-```
-    Route::resource('posts', 'API\PostController');
-```
 Заголовоки GET-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -109,10 +93,6 @@ Authorization - Bearer token<br>
 ```
 
 - /api/posts - создание поста<br>
-Роут: 
-```
-    Route::resource('posts', 'API\PostController');
-```
 Заголовоки POST-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -140,10 +120,6 @@ Authorization - Bearer token<br>
 ```
 
 - /api/posts/{post} - просмотр поста<br>
-Роут: 
-```
-    Route::resource('posts', 'API\PostController');
-```
 Заголовоки GET-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -163,11 +139,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts/{post} - изменение поста<br>
-Роут: 
-```
-    Route::resource('posts', 'API\PostController');
-```
+- /api/posts/update - изменение поста<br>
 Заголовоки PUT-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -194,11 +166,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts/{post} - удаление поста<br>
-Роут: 
-```
-    Route::resource('posts', 'API\PostController');
-```
+- /api/posts/delete - удаление поста<br>
 Заголовоки DELETE-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -219,10 +187,6 @@ Authorization - Bearer token<br>
 ```
 
 - /api/comments - просмотр всех комментариев<br>
-Роут: 
-```
-    Route::get('/comments', 'API\CommentController@showAllComments');
-```
 Заголовоки GET-запроса:<br>
 Accept - application/json<br>
 Ответ:
@@ -245,10 +209,6 @@ Accept - application/json<br>
 ```
 
 - /api/posts/{post}/comments - просмотр комментариев определённого поста<br>
-Роут: 
-```
-    Route::get('posts/{post}/comments', 'API\CommentController@showCommentsSinglePost');
-```
 Заголовоки GET-запроса:<br>
 Accept - application/json<br>
 Ответ:
@@ -271,10 +231,6 @@ Accept - application/json<br>
 ```
 
 - /api/posts/{post}/comment - создание комментария<br>
-Роут: 
-```
-    Route::resource('/posts/{post}/comment', 'API\CommentController')->except(['edit', 'show', 'index']);
-```
 Заголовоки POST-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -309,11 +265,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts/{post}/comment/{comment} - изменение комментария<br>
-Роут: 
-```
-    Route::resource('/posts/{post}/comment', 'API\CommentController')->except(['edit', 'show', 'index']);
-```
+- /api/posts/{post}/comment/update - изменение комментария<br>
 Заголовоки PUT-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -348,11 +300,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts/{post}/comment/{comment} - удаление комментария<br>
-Роут: 
-```
-    Route::resource('/posts/{post}/comment', 'API\CommentController')->except(['edit', 'show', 'index']);
-```
+- /api/posts/{post}/comment/delete - удаление комментария<br>
 Заголовоки DELETE-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -382,10 +330,6 @@ Authorization - Bearer token<br>
 ```
 
 - /api/profile - получение данных пользователя<br>
-Роут: 
-```
-    Route::get('profile', 'API\ProfileController@show');
-```
 Заголовоки GET-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -406,11 +350,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/profile - изменение данных пользователя<br>
-Роут: 
-```
-    Route::put('profile', 'API\ProfileController@update')->name('profile_api');
-```
+- /api/profile/update - изменение данных пользователя<br>
 Заголовоки PUT-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
