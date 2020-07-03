@@ -4,7 +4,7 @@
 ## API
 
 - /api/register - регистрация<br>
-Заголовок GET-запроса: Accept - application/json<br>
+Заголовок POST-запроса: Accept - application/json<br>
 Роут: 
 ```
     Route::post('register', 'API\RegisterController@register')->name('register_api');
