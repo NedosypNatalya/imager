@@ -3,7 +3,7 @@
 
 ## API
 
-- /api/register - регистрация
+- /api/register - регистрация<br>
 Заголовок GET-запроса: Accept - application/json<br>
 Роут: 
 ```
@@ -31,7 +31,7 @@
     }
 ```
 
-- /api/login - авторизация
+- /api/login - авторизация<br>
 Роут: 
 ```
     Route::post('login', 'API\LoginController@login')->name('login_api');
@@ -56,7 +56,7 @@
     }
 ```
 
-- /api/all_posts - получение списка всех постов
+- /api/all_posts - получение списка всех постов<br>
 Роут: 
 ```
     Route::get('all_posts', 'API\PostController@getAllPosts');
@@ -81,7 +81,7 @@
     }
 ```
 
-- /api/posts - получение списка постов авторизированного пользователя
+- /api/posts - получение списка постов авторизированного пользователя<br>
 Роут: 
 ```
     Route::resource('posts', 'API\PostController');
@@ -108,7 +108,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts - создание поста
+- /api/posts - создание поста<br>
 Роут: 
 ```
     Route::resource('posts', 'API\PostController');
@@ -139,7 +139,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts/{post} - просмотр поста
+- /api/posts/{post} - просмотр поста<br>
 Роут: 
 ```
     Route::resource('posts', 'API\PostController');
@@ -163,7 +163,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts/{post} - изменение поста
+- /api/posts/{post} - изменение поста<br>
 Роут: 
 ```
     Route::resource('posts', 'API\PostController');
@@ -194,7 +194,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts/{post} - удаление поста
+- /api/posts/{post} - удаление поста<br>
 Роут: 
 ```
     Route::resource('posts', 'API\PostController');
@@ -218,7 +218,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/comments - просмотр всех комментариев
+- /api/comments - просмотр всех комментариев<br>
 Роут: 
 ```
     Route::get('/comments', 'API\CommentController@showAllComments');
@@ -244,7 +244,7 @@ Accept - application/json<br>
 }
 ```
 
-- /api/posts/{post}/comments - просмотр комментариев определённого поста
+- /api/posts/{post}/comments - просмотр комментариев определённого поста<br>
 Роут: 
 ```
     Route::get('posts/{post}/comments', 'API\CommentController@showCommentsSinglePost');
@@ -270,7 +270,7 @@ Accept - application/json<br>
 }
 ```
 
-- /api/posts/{post}/comment - создание комментария
+- /api/posts/{post}/comment - создание комментария<br>
 Роут: 
 ```
     Route::resource('/posts/{post}/comment', 'API\CommentController')->except(['edit', 'show', 'index']);
@@ -309,7 +309,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts/{post}/comment/{comment} - изменение комментария
+- /api/posts/{post}/comment/{comment} - изменение комментария<br>
 Роут: 
 ```
     Route::resource('/posts/{post}/comment', 'API\CommentController')->except(['edit', 'show', 'index']);
@@ -348,7 +348,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts/{post}/comment/{comment} - удаление комментария
+- /api/posts/{post}/comment/{comment} - удаление комментария<br>
 Роут: 
 ```
     Route::resource('/posts/{post}/comment', 'API\CommentController')->except(['edit', 'show', 'index']);
@@ -381,7 +381,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/profile - получение данных пользователя
+- /api/profile - получение данных пользователя<br>
 Роут: 
 ```
     Route::get('profile', 'API\ProfileController@show');
@@ -406,7 +406,7 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/profile - изменение данных пользователя
+- /api/profile - изменение данных пользователя<br>
 Роут: 
 ```
     Route::post('profile', 'API\ProfileController@update')->name('profile_api');
