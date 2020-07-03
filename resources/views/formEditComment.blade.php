@@ -20,7 +20,7 @@
         </div>
         @endif
         <form id="update" method="post" action="{{ route('comment.update', ['comment' => $comment->id]) }}">
-            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+            {{ csrf_field() }}
             @method('PUT')
             <div class="form-group">
                 <label for="content">Комментарий</label>
@@ -30,7 +30,7 @@
         </form>
         <form id="delete" method="post" action="{{route('comment.destroy', ['comment' => $comment->id])}}">
             @method('DELETE')
-            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+            {{ csrf_field() }}
             <button class="btn btn-danger" type="submit">Удалить комментарий</button>
         </form>
     </div>

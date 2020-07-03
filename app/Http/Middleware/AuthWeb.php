@@ -16,7 +16,7 @@ class AuthWeb
      */
     public function handle($request, Closure $next)
     {
-        if (empty($request)) {
+        if (empty(Auth::user())) {
             return route('login_form');
         }
         return $next($request);

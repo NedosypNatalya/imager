@@ -7,7 +7,7 @@
             <h3>Вход</h3>
         </div>
         <form action="{{route('login')}}" method="post">
-            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+        {{ csrf_field() }}
             <div class="form-group">
                 <label for="email">Почта</label>
                 <input class="form-control" type="email" name="email" id="email" placeholder="email@mail.com">

@@ -18,15 +18,10 @@ Route::get('/', function () {
     return view('index');
 })->name('main');
 
-/*Route::middleware('myauth:'.Auth::user())->group( function () {
+/*Route::middleware('myauth')->group( function () {
     Route::get('/logout', 'LogoutController@logout')->name('logout');
     Route::get('/profile/{user}', 'FormController@profile')->name('profile_form');
     Route::post('/profile', 'ProfileController@profileUpdate')->name('profile_update');
-    Route::resource('/my_posts', 'PostController');
-    Route::get('/my_posts/{my_post}/delele-image-{image}', 'PostController@imageDelete')->name('image_delete');
-    Route::get('/export/excel', 'PostController@exportExcel')->name('posts.exportexcel');
-    Route::get('/export/scv', 'PostController@exportCSV')->name('posts.exportcsv');
-    Route::get('/export/xml', 'PostController@exportXML')->name('posts.exportxml');
 });*/
 
 Route::get('/register', 'FormController@register')->name('register_form');

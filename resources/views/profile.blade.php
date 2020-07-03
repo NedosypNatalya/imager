@@ -13,7 +13,7 @@
         @endif
 
         <form method="post" action="{{ route('profile_update') }}">
-            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+        {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Имя</label>
                 <input class="form-control" type="text" name="name" id="name" value="{{$user->name}}">

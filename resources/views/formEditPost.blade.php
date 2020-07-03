@@ -20,7 +20,7 @@
         </div>
         @endif
         <form id="update" method="post" action="{{ route('my_posts.update', ['my_post' => $post->id]) }}" enctype="multipart/form-data">
-            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+        {{ csrf_field() }}
             @method('PUT')
             <div class="form-group">
                 <label for="title">Заголовок</label>
@@ -39,7 +39,7 @@
         </form>
         <form id="delete" method="post" action="{{route('my_posts.destroy', ['my_post' => $post->id])}}">
             @method('DELETE')
-            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+            {{ csrf_field() }}
             <button class="btn btn-danger" type="submit">Удалить пост</button>
         </form>
         @foreach($post['images'] as $image)
@@ -49,7 +49,7 @@
             </form>
         @endforeach
         <form id="form-add-comment" method="post" action="{{ route('comment.store') }}">
-            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+        {{ csrf_field() }}
             <div class="form-group">
                 <label for="text">Комментарий</label>
                 <textarea class="form-control" name="text" id="text" cols="30" rows="2"></textarea>
@@ -64,13 +64,13 @@
                     <a href="#" class="alert-link">{{ $comment->user->name }}</a>{{ $comment->text }}
                         @if($comment->user_id == $post->user_id)
                             <form method="get" action="{{route('comment.edit', ['comment' => $comment->id])}}">
-                                <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                            {{ csrf_field() }}
                                 <input class="btn btn-outline-primary" type="submit" value="Изменить">
                             </form>
                         @endif
                         <form method="post" action="{{route('comment.destroy', ['comment' => $comment->id])}}">
                             @method('DELETE')
-                            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                            {{ csrf_field() }}
                             <input class="btn btn-outline-danger" type="submit" value="Удалить">
                         </form>
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
+use Illuminate\Support\Facades\Auth;
 use App\Posts;
 use App\Image;
 use Validator;
@@ -16,8 +17,13 @@ class PostController extends BaseController
      */
     public function index()
     {
+        $posts = Posts::all()->where('user_id', '=', Auth::user()->id);
+        return $this->sendResponse($posts->toArray(), 'My posts retrieved successfully.');
+    }
+    public function getAllPosts()
+    {
         $posts = Posts::all();
-        return $this->sendResponse($posts->toArray(), 'Posts retrieved successfully.');
+        return $this->sendResponse($posts->toArray(), 'All posts retrieved successfully.');
     }
     /**
      * Store a newly created resource in storage.
@@ -30,7 +36,8 @@ class PostController extends BaseController
         $input = $request->all();
         $validator = Validator::make($input, [
             'title' => 'required|max:255',
-            'content' => 'required|max:1000'
+            'content' => 'required|max:1000',
+            'user_id' => 'required'
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       

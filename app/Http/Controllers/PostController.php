@@ -22,9 +22,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Posts::all()->where('user_id', '=', Auth::user()->id);
-        //$images = Posts::find(1)->images()->where('user_id', '=', Auth::user()->id);
         foreach ($posts as $post) {
-           // $post['images'] = Posts::find($post->id)->images();
             $post['images'] = Image::all()->where('post_id', '=', $post->id);
             
         }

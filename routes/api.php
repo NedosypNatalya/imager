@@ -16,12 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', 'API\RegisterController@register')->name('register_api');
 Route::post('login', 'API\LoginController@login')->name('login_api');
 
+Route::get('all_posts', 'API\PostController@getAllPosts');
+Route::get('posts/{post}/comments', 'API\CommentController@showCommentsSinglePost');
+Route::get('/comments', 'API\CommentController@showAllComments');
 Route::middleware('auth:api')->group( function () {
     Route::resource('posts', 'API\PostController');
     Route::resource('images', 'API\ImageController');
     Route::post('logout', 'API\LogoutController@logout')->name('logout_api');
     Route::post('profile', 'API\ProfileController@edit')->name('profile_api');
+    Route::resource('/posts/{post}/comment', 'API\CommentController')->except(['edit', 'show', 'index']);
 });
 
-//Route::get('/posts', 'API\PostController@index');
-Route::post('/images/create', 'API\ImageController@store')->name('upload_file_api');
+
+Route::post('/images/create', 'API\ImageController@store');

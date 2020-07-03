@@ -14,7 +14,7 @@
         </div>
         @if(Auth::user())
         <form id="form-add-comment" method="post" action="{{ route('comment.store') }}">
-            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+        {{ csrf_field() }}
             <div class="form-group">
                 <label for="text">Комментарий</label>
                 <textarea class="form-control" name="text" id="text" cols="30" rows="2"></textarea>
