@@ -23,7 +23,8 @@ Route::middleware('auth:api')->group( function () {
     Route::resource('posts', 'API\PostController');
     Route::resource('images', 'API\ImageController');
     Route::post('logout', 'API\LogoutController@logout')->name('logout_api');
-    Route::post('profile', 'API\ProfileController@edit')->name('profile_api');
+    Route::post('profile', 'API\ProfileController@update')->name('profile_api');
+    Route::get('profile', 'API\ProfileController@show');
     Route::resource('/posts/{post}/comment', 'API\CommentController')->except(['edit', 'show', 'index']);
 });
 

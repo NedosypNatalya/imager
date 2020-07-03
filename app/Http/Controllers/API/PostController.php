@@ -37,12 +37,15 @@ class PostController extends BaseController
         $validator = Validator::make($input, [
             'title' => 'required|max:255',
             'content' => 'required|max:1000',
-            'user_id' => 'required'
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
-        $post = Post::create($input);
+        $post = new Post;
+        $post->title = $input['title'];
+        $post->content = $input['content'];
+        $post->user_id = Auth::user()->id;
+        $post->save();
         $id_post = $post['id'];
         foreach ($request->file() as $file) {
             foreach ($file as $f) {
@@ -64,7 +67,7 @@ class PostController extends BaseController
      */
     public function show($id)
     {
-        $post = Posts::find($id);
+        $post = Post::find($id);
         if (is_null($post)) {
             return $this->sendError('Post not found.');
         }
@@ -77,7 +80,7 @@ class PostController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Posts $post)
+    public function update(Request $request, Post $post)
     {
         $input = $request->all();
         $validator = Validator::make($input, [
@@ -87,6 +90,7 @@ class PostController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
+        //$post = Post::find($post);
         $post->title = $input['title'];
         $post->content = $input['content'];
         $post->save();
@@ -98,9 +102,9 @@ class PostController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Posts $post)
+    public function destroy(Post $post)
     {
-        $propostduct->delete();
+        $post->delete();
         return $this->sendResponse($post->toArray(), 'Post deleted successfully.');
     }
 }

@@ -10,7 +10,13 @@ use Validator;
 
 class ProfileController extends BaseController
 {
-    public function update(Request $request, $id){
+
+    public function show(){
+        $user = User::find(Auth::user()->id);
+        return $this->sendResponse($user->toArray(), 'User retrieved successfully.');
+    }
+
+    public function update(Request $request){
         $input = $request->all();
         $validator = Validator::make($input, [
             'name' => 'required|max:255',
@@ -21,13 +27,14 @@ class ProfileController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
-        $user = (new User)->find($input['id']);
+        $user = (new User)->find(Auth::user()->id);
         $user->name = $input['name'];
         $user->email = $input['email'];
         if(!empty($input['password'])){
             $user->password = bcrypt($input['password']);
         }
+        $user->address = $input['address'];
         $user->save();
-        return $this->sendResponse($post->toArray(), 'Post updated successfully.');
+        return $this->sendResponse($user->toArray(), 'Profile updated successfully.');
     }
 }
