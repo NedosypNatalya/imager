@@ -409,9 +409,9 @@ Authorization - Bearer token<br>
 - /api/profile - изменение данных пользователя<br>
 Роут: 
 ```
-    Route::post('profile', 'API\ProfileController@update')->name('profile_api');
+    Route::put('profile', 'API\ProfileController@update')->name('profile_api');
 ```
-Заголовоки POST-запроса:<br>
+Заголовоки PUT-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
 Тело запроса:
