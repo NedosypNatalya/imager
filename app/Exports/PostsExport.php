@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Posts;
+use App\Post;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,6 +13,6 @@ class PostsExport implements FromCollection
     */
     public function collection()
     {
-        return Posts::all()->where('user_id', '=', Auth::user()->id);
+        return Post::all()->where('user_id', '=', Auth::user()->id);
     }
 }

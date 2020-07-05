@@ -90,7 +90,6 @@ class PostController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
-        //$post = Post::find($post);
         $post->title = $input['title'];
         $post->content = $input['content'];
         $post->save();

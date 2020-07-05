@@ -83,8 +83,8 @@ Authorization - Bearer token<br>
                 "title": "Заголовок",
                 "content": "Текст поста",
                 "user_id": 1,
-                "created_at": "2020-07-03T12:35:54.000000Z",
-                "updated_at": "2020-07-03T12:35:54.000000Z"
+                "created_at": "03-07-2020 12:35",
+                "updated_at": "03-07-2020 12:35"
             },
             ...
         ],
@@ -111,8 +111,8 @@ Authorization - Bearer token<br>
             "title": "Заголовок",
             "content": "Текст",
             "user_id": 1,
-            "updated_at": "2020-07-03T12:35:54.000000Z",
-            "created_at": "2020-07-03T12:35:54.000000Z",
+            "updated_at": "03-07-2020 12:35",
+            "created_at": "03-07-2020 12:35",
             "id": 1
         },
         "message": "Post created successfully."
@@ -131,8 +131,8 @@ Authorization - Bearer token<br>
             "title": "Заголовок",
             "content": "Текст",
             "user_id": 1,
-            "updated_at": "2020-07-03T12:35:54.000000Z",
-            "created_at": "2020-07-03T12:35:54.000000Z",
+            "updated_at": "03-07-2020 12:35",
+            "created_at": "03-07-2020 12:35",
             "id": 1
         },
         "message": "Post retrieved successfully."
@@ -158,8 +158,8 @@ Authorization - Bearer token<br>
             "title": "Заголовок",
             "content": "Текст",
             "user_id": 1,
-            "updated_at": "2020-07-03T12:35:54.000000Z",
-            "created_at": "2020-07-03T12:35:54.000000Z",
+            "updated_at": "03-07-2020 12:35",
+            "created_at": "03-07-2020 12:35",
             "id": 1
         },
         "message": "Post updated successfully."
@@ -178,8 +178,8 @@ Authorization - Bearer token<br>
             "title": "Заголовок",
             "content": "Текст",
             "user_id": 1,
-            "updated_at": "2020-07-03T12:35:54.000000Z",
-            "created_at": "2020-07-03T12:35:54.000000Z",
+            "updated_at": "03-07-2020 12:35",
+            "created_at": "03-07-2020 12:35",
             "id": 1
         },
         "message": "Post deleted successfully."
@@ -199,8 +199,8 @@ Accept - application/json<br>
             "text": "Текст комментария",
             "post_id": 1,
             "user_id": 1,
-            "created_at": "2020-07-02T08:48:09.000000Z",
-            "updated_at": "2020-07-02T08:48:09.000000Z"
+            "created_at": "03-07-2020 12:35",
+            "updated_at": "03-07-2020 12:35"
         },
         ...
     ],
@@ -221,8 +221,8 @@ Accept - application/json<br>
             "text": "Текст комментария",
             "post_id": 1,
             "user_id": 1,
-            "created_at": "2020-07-02T08:48:09.000000Z",
-            "updated_at": "2020-07-02T08:48:09.000000Z"
+            "created_at": "03-07-2020 12:35",
+            "updated_at": "03-07-2020 12:35"
         },
         ...
     ],
@@ -248,16 +248,16 @@ Authorization - Bearer token<br>
             "text": "Текст комментария",
             "post_id": "1",
             "user_id": 1,
-            "updated_at": "2020-07-03T11:16:24.000000Z",
-            "created_at": "2020-07-03T11:16:24.000000Z",
+            "updated_at": "03-07-2020 12:35",
+            "created_at": "03-07-2020 12:35",
             "id": 55,
             "user": {
                 "id": 1,
                 "name": "Иван",
                 "email": "email@email.com",
                 "email_verified_at": null,
-                "created_at": "2020-06-30T08:21:43.000000Z",
-                "updated_at": "2020-06-30T08:21:43.000000Z",
+                "created_at": "03-07-2020 12:35",
+                "updated_at": "03-07-2020 12:35",
                 "address": "Тамбов"
             }
         },
@@ -283,16 +283,16 @@ Authorization - Bearer token<br>
             "text": "Новый текст комментария",
             "post_id": "1",
             "user_id": 1,
-            "updated_at": "2020-07-03T11:16:24.000000Z",
-            "created_at": "2020-07-03T11:16:24.000000Z",
+            "updated_at": "03-07-2020 12:35",
+            "created_at": "03-07-2020 12:35",
             "id": 55,
             "user": {
                 "id": 1,
                 "name": "Иван",
                 "email": "email@email.com",
                 "email_verified_at": null,
-                "created_at": "2020-06-30T08:21:43.000000Z",
-                "updated_at": "2020-06-30T08:21:43.000000Z",
+                "created_at": "03-07-2020 12:35",
+                "updated_at": "03-07-2020 12:35",
                 "address": "Тамбов"
             }
         },
@@ -312,16 +312,16 @@ Authorization - Bearer token<br>
             "text": "Новый текст комментария",
             "post_id": "1",
             "user_id": 1,
-            "updated_at": "2020-07-03T11:16:24.000000Z",
-            "created_at": "2020-07-03T11:16:24.000000Z",
+            "updated_at": "03-07-2020 12:35",
+            "created_at": "03-07-2020 12:35",
             "id": 55,
             "user": {
                 "id": 1,
                 "name": "Иван",
                 "email": "email@email.com",
                 "email_verified_at": null,
-                "created_at": "2020-06-30T08:21:43.000000Z",
-                "updated_at": "2020-06-30T08:21:43.000000Z",
+                "created_at": "03-07-2020 12:35",
+                "updated_at": "03-07-2020 12:35",
                 "address": "Тамбов"
             }
         },
@@ -342,8 +342,8 @@ Authorization - Bearer token<br>
             "name": "Иван",
             "email": "email@email.com",
             "email_verified_at": null,
-            "created_at": "2020-06-26T06:55:12.000000Z",
-            "updated_at": "2020-06-29T05:30:35.000000Z",
+            "created_at": "03-07-2020 12:35",
+            "updated_at": "03-07-2020 12:35",
             "address": "Тамбов"
         },
         "message": "User retrieved successfully."
@@ -373,8 +373,8 @@ Authorization - Bearer token<br>
             "name": "Иван",
             "email": "email@email.com",
             "email_verified_at": null,
-            "created_at": "2020-06-26T06:55:12.000000Z",
-            "updated_at": "2020-07-03T13:24:45.000000Z",
+            "created_at": "03-07-2020 12:35",
+            "updated_at": "03-07-2020 12:35",
             "address": "Москва"
         },
         "message": "Profile updated successfully."

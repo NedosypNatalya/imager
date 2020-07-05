@@ -42,8 +42,6 @@ class CommentController extends BaseController
         $comment->text = $data['text'];
         $comment->post_id = $post_id;
         $comment->user()->associate(Auth::user());
-
-        //  $comment->user = Auth::user()->id;//->associate(Auth::user()->id);
         $comment->save();
         return $this->sendResponse($comment->toArray(), 'Comment created successfully.');
     }

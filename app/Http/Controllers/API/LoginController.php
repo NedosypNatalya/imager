@@ -25,10 +25,6 @@ class LoginController extends BaseController
         $token = Auth::user()->createToken(config('app.name'));
         $success['token_type'] = 'Bearer';
         $success['token'] = $token->accessToken;
-       // $user = Auth::user();
-       // return redirect()->route('profile', ['user' => Auth::user()]);//, [/*'user' => Auth::user()*/$user]);
-        //return redirect()->action('FormController@profile', ['user' => Auth::user()]);
-        //view('profile', ['user' => Auth::user()]);//
         return $this->sendResponse($success, 'User authorizate successfully.');
     }
 }

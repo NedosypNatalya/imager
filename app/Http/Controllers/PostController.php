@@ -104,7 +104,6 @@ class PostController extends Controller
         $post->content = $input['content'];
         $post->save();
         $post['images'] = Image::all()->where('post_id', '=', $post->id);
-        //$post['comments'] = $post->comments;//Comment::all()->where('post_id', '=', $post->id);
         return view('formEditPost', ['message' => 'Изменения сохранены', 'post' => $post]);
     }
 

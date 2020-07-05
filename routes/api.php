@@ -27,6 +27,3 @@ Route::middleware('auth:api')->group( function () {
     Route::get('profile', 'API\ProfileController@show');
     Route::resource('/posts/{post}/comment', 'API\CommentController')->except(['edit', 'show', 'index']);
 });
-
-
-Route::post('/images/create', 'API\ImageController@store');
