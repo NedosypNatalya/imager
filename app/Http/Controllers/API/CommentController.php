@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
 use App\Comment;
-use App\User;
 use Validator;
 
 class CommentController extends BaseController

@@ -25,10 +25,6 @@ class CommentController extends Controller
         return response()->json($response);
     }
 
-    public function show($id){
-        dd('show');
-    }
-
     public function edit($id){
         $comment = Comment::find($id);
         if (is_null($comment)) {
@@ -45,8 +41,7 @@ class CommentController extends Controller
     }
     public function destroy($id){
         $comment = Comment::find($id);
-        $post_id = $comment->post_id;
         $comment->delete();
-        return redirect()->route('my_posts.show', ['my_post' => $post_id]);
+        return redirect()->route('my_posts.show', ['my_post' => $comment->post_id]);
     }
 }

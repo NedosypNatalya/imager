@@ -22,10 +22,6 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all()->where('user_id', '=', Auth::user()->id);
-        foreach ($posts as $post) {
-            $post['images'] = Image::all()->where('post_id', '=', $post->id);
-            
-        }
         return view('posts', ['posts' => $posts]);
     }
 
@@ -62,8 +58,6 @@ class PostController extends Controller
         if (is_null($post)) {
             return 'Post not found.';
         }
-        $post['images'] = Image::all()->where('post_id', '=', $post->id);
-        $post['comments'] = $post->comments;
         return view('formEditPost', ['post' => $post]);
     }
 
@@ -72,8 +66,6 @@ class PostController extends Controller
         if (is_null($post)) {
             return 'Post not found.';
         }
-        $post['images'] = Image::all()->where('post_id', '=', $post->id);
-        $post['comments'] = Comment::all()->where('post_id', '=', $post->id);
         return view('post', ['post' => $post]);
     }
 
@@ -103,7 +95,6 @@ class PostController extends Controller
         $post->title = $input['title'];
         $post->content = $input['content'];
         $post->save();
-        $post['images'] = Image::all()->where('post_id', '=', $post->id);
         return view('formEditPost', ['message' => 'Изменения сохранены', 'post' => $post]);
     }
 

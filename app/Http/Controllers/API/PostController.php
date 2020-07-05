@@ -44,7 +44,7 @@ class PostController extends BaseController
         $post = new Post;
         $post->title = $input['title'];
         $post->content = $input['content'];
-        $post->user_id = Auth::user()->id;
+        $post->user()->associate(Auth::user());
         $post->save();
         $id_post = $post['id'];
         foreach ($request->file() as $file) {

@@ -42,7 +42,7 @@
             {{ csrf_field() }}
             <button class="btn btn-danger" type="submit">Удалить пост</button>
         </form>
-        @foreach($post['images'] as $image)
+        @foreach($post->images as $image)
             <img width="100px" src="../storage/images/{{$post->id}}/{{$image->title}}" alt="{{$image->title}}">
             <form method="get" action="{{route('image_delete', ['my_post' => $post->id, 'image' => $image->id])}}">
                 <input class="btn btn-outline-danger" type="submit" value="Удалить">
@@ -59,7 +59,7 @@
             </div>
         </form>
         <div id="comments-block">
-            @foreach($post['comments'] as $comment)
+            @foreach($post->comments as $comment)
                 <div class="alert alert-secondary" role="alert">
                     <a href="#" class="alert-link">{{ $comment->user->name }}</a>{{ $comment->text }}
                         @if($comment->user_id == $post->user_id)
@@ -68,7 +68,7 @@
                                 <input class="btn btn-outline-primary" type="submit" value="Изменить">
                             </form>
                         @endif
-                        <form method="post" action="{{route('comment.destroy', ['comment' => $comment->id])}}">
+                        <form  method="post" action="{{route('comment.destroy', ['comment' => $comment->id])}}">
                             @method('DELETE')
                             {{ csrf_field() }}
                             <input class="btn btn-outline-danger" type="submit" value="Удалить">

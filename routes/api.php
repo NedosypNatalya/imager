@@ -21,7 +21,6 @@ Route::get('posts/{post}/comments', 'API\CommentController@showCommentsSinglePos
 Route::get('/comments', 'API\CommentController@showAllComments');
 Route::middleware('auth:api')->group( function () {
     Route::resource('posts', 'API\PostController');
-    Route::resource('images', 'API\ImageController');
     Route::post('logout', 'API\LogoutController@logout')->name('logout_api');
     Route::put('profile', 'API\ProfileController@update')->name('profile_api');
     Route::get('profile', 'API\ProfileController@show');
