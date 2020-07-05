@@ -9,6 +9,11 @@ use Validator;
 
 class ProfileController extends Controller
 {
+
+    public function getProfile(){
+        return view('profile', ['user' => Auth::user()]);
+    }
+
     public function profileUpdate(Request $request){
         $input = $request->all();
         $validator = Validator::make($input, [

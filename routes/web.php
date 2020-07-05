@@ -18,28 +18,26 @@ Route::get('/', function () {
     return view('index');
 })->name('main');
 
-Route::get('/register', 'FormController@register')->name('register_form');
+
+Route::middleware('auth:web')->group( function () {
+    Route::resource('/my_posts', 'PostController');
+    Route::get('/my_posts/{my_post}/delele-image-{image}', 'PostController@imageDelete')->name('image_delete');
+    Route::get('/logout', 'LogoutController@logout')->name('logout');
+    Route::get('/profile/{user}', 'ProfileController@getProfile')->name('profile_form');
+    Route::post('/profile', 'ProfileController@profileUpdate')->name('profile_update');
+    Route::get('/export/excel', 'PostController@exportExcel')->name('posts.exportexcel');
+    Route::get('/export/scv', 'PostController@exportCSV')->name('posts.exportcsv');
+    Route::get('/export/xml', 'PostController@exportXML')->name('posts.exportxml');
+    Route::post('/comment/store', 'CommentController@store')->name('comment.store');
+    Route::resource('/comment', 'CommentController')->except(['show', 'store']);
+    Route::get('/comment/{comment}/edit', 'CommentController@edit')->name('comment.edit');
+});
+
+Route::get('/register', 'RegisterController@getRegisterForm')->name('register_form');
 Route::post('/register', 'RegisterController@register')->name('register');
 Route::post('/register/address', 'RegisterController@setData');
 Route::post('/register/email', 'RegisterController@setData');
-
-Route::get('/login', 'FormController@login')->name('login_form');
+Route::get('/login', 'LoginController@getLoginForm')->name('login_form');
 Route::post('/login', 'LoginController@login')->name('login');
-Route::get('/logout', 'LogoutController@logout')->name('logout');
-
-Route::get('/profile/{user}', 'FormController@profile')->name('profile_form');
-Route::post('/profile', 'ProfileController@profileUpdate')->name('profile_update');
-
-Route::resource('/my_posts', 'PostController');
 Route::get('/posts_all', 'PostController@getAll')->name('posts.all');
 Route::get('/posts/{post}', 'PostController@showPost')->name('allpost.show');
-
-Route::get('/my_posts/{my_post}/delele-image-{image}', 'PostController@imageDelete')->name('image_delete');
-
-Route::get('/export/excel', 'PostController@exportExcel')->name('posts.exportexcel');
-Route::get('/export/scv', 'PostController@exportCSV')->name('posts.exportcsv');
-Route::get('/export/xml', 'PostController@exportXML')->name('posts.exportxml');
-
-Route::post('/comment/store', 'CommentController@store')->name('comment.store');
-Route::resource('/comment', 'CommentController')->except(['show', 'store']);
-Route::get('/comment/{comment}/edit', 'CommentController@edit')->name('comment.edit');

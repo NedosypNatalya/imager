@@ -17,4 +17,9 @@ class Comment extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    protected $casts = [
+        'created_at' => 'datetime:d-m-Y H:i',
+        'updated_at' => 'datetime:d-m-Y H:i',
+    ];
 }
