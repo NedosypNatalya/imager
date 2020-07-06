@@ -4,6 +4,7 @@
   <a class="p-2 text-dark" href="{{route('posts.all')}}">Посты</a>
   @if(Auth::user())
     <a class="p-2 text-dark" href="{{route('my_posts.index')}}">Мои посты</a>
+    <a class="p-2 text-dark" href="{{route('profile_form')}}">Профиль</a>
     <a class="p-2 text-dark" href="{{route('logout')}}">Выйти</a>
   </nav>
   @else

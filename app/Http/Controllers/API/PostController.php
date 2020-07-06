@@ -37,7 +37,7 @@ class PostController extends BaseController
         $input = $request->all();
         $validator = Validator::make($input, [
             'title' => 'required|max:255',
-            'content' => 'required|max:1000',
+            'content' => 'required|max:4000',
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
@@ -77,7 +77,7 @@ class PostController extends BaseController
         $input = $request->all();
         $validator = Validator::make($input, [
             'title' => 'required|max:255',
-            'content' => 'required|max:1000'
+            'content' => 'required|max:4000'
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       

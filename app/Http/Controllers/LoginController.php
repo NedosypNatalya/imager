@@ -20,6 +20,6 @@ class LoginController extends Controller
            return   'You cannot sign with those credentials.'; 
         }
         $user = Auth::user();
-       return redirect()->route('profile_form', ['user' => $user]);
+       return redirect()->route('profile_form');
     }
 }

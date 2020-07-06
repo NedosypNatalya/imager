@@ -45,32 +45,17 @@ $(document).ready(function() {
     getDataKeyup("#address", "#items-address", "address", "/register/address");
     getDataKeyup("#email", "#items-email", "email", "/register/email", 5);
 
-   /* $("#form-add-comment").on('submit', function (e) {   
-        e.preventDefault();
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-            type: "POST",
-            url: '/comment/store',
-            data: { 
-                _token: CSRF_TOKEN, 
-                text:$("#text").val(),
-                post_id: $("#post_id").val(),
-                user_id: $("#user_id").val(),
-            },
-            dataType: 'JSON',
-            success: function(response){
-                result = response.data;
-                if(result){
-                    $("#comments-block").append("<div class='alert alert-secondary' role='alert'><a href='#' class='alert-link'>"+result.user_id+"</a>"+result->text+"</div>");
-                }
-            }
-       });
+   $(".card-text").text(function(i, text) {
+        if (text.length >= 50) {
+            text = text.substring(0, 50);
+            var lastIndex = text.lastIndexOf(" ");
+            text = text.substring(0, lastIndex) + '...';
+        }
+        $(this).text(text);
     });
-*/
 
 
-
-
+    
     $("#store-comment").click(function(e){
         e.preventDefault();
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -113,63 +98,12 @@ $(document).ready(function() {
                     "<div class='alert alert-secondary' role='alert'>"+
                         "<a href='#' class='alert-link'>"+result.user_name+"</a>"+result.text+
                         "<form method='get' action='/comment/"+result.comment_id+"/edit'><input class='btn btn-outline-primary' type='submit' value='Изменить'></form>"+
-                        "<form method='post' action='/comment/"+result.comment_id+"'><input class='btn btn-outline-danger' type='submit' value='Удалить'></form>"+
+                        "<form method='get' action='/comment/"+result.comment_id+"/delete'><input class='btn btn-outline-danger' type='submit' value='Удалить'></form>"+
                     "</div>");
                 }
             }
        });
     })
-
-   /* $('#address').keyup(function(e) {
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        //e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: '/register/address',
-            data: { 
-                _token: CSRF_TOKEN, 
-                message:$("#address").val(),
-                count: 10,
-                category: "address"
-            },
-            dataType: 'JSON',
-            success: function(response){
-                res = response.data.suggestions;
-                options = "";
-                if(res){
-                    res.forEach(function(item, i, res) {
-                    options += "<option value='"+item.value+"'>";
-                    });
-                    $('#items-address').html(options);
-                }
-            }
-       });
-    });
-    $('#email').keyup(function(e) {
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        //e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: '/register/email',
-            data: { 
-                _token: CSRF_TOKEN, 
-                message:$("#email").val(),
-                count: 5,
-                category: "email"
-            },
-            dataType: 'JSON',
-            success: function(response){
-                res = response.data.suggestions;
-                options = "";
-                if(res){
-                    res.forEach(function(item, i, res) {
-                    options += "<option value='"+item.value+"'>";
-                    });
-                    $('#items-email').html(options);
-                }
-            }
-       });
-    });*/
 });
 </script>
 </body>
