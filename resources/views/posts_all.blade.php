@@ -6,7 +6,7 @@
         @foreach($posts as $post)
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $post->title }}</h5>
+                    <a href="{{route('allpost.show', ['post' => $post->id])}}"><h5 class="card-title">{{ $post->title }}</h5></a>
                     <p class="card-text">{{ $post->content }}</p>
                     <a href="{{route('allpost.show', ['post' => $post->id])}}" class="btn btn-outline-primary">Показать</a>
                     @foreach($post['images'] as $image)

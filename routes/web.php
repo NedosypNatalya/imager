@@ -23,7 +23,7 @@ Route::middleware('auth:web')->group( function () {
     Route::resource('/my_posts', 'PostController');
     Route::get('/my_posts/{my_post}/delele-image-{image}', 'PostController@imageDelete')->name('image_delete');
     Route::get('/logout', 'LogoutController@logout')->name('logout');
-    Route::get('/profile/{user}', 'ProfileController@getProfile')->name('profile_form');
+    Route::get('/profile', 'ProfileController@getProfile')->name('profile_form');
     Route::post('/profile', 'ProfileController@profileUpdate')->name('profile_update');
     Route::get('/export/excel', 'PostController@exportExcel')->name('posts.exportexcel');
     Route::get('/export/scv', 'PostController@exportCSV')->name('posts.exportcsv');
@@ -31,6 +31,7 @@ Route::middleware('auth:web')->group( function () {
     Route::post('/comment/store', 'CommentController@store')->name('comment.store');
     Route::resource('/comment', 'CommentController')->except(['show', 'store']);
     Route::get('/comment/{comment}/edit', 'CommentController@edit')->name('comment.edit');
+    Route::get('/comment/{comment}/delete', 'CommentController@destroy')->name('comment.delete');
 });
 
 Route::get('/register', 'RegisterController@getRegisterForm')->name('register_form');

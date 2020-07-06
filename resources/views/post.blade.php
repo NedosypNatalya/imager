@@ -28,6 +28,21 @@
             @foreach($post->comments as $comment)
                 <div class="alert alert-secondary" role="alert">
                     <a href="#" class="alert-link">{{ $comment->user->name }}</a>{{ $comment->text }}
+                    @if(!empty(Auth::user()))
+                        @if($post->user == Auth::user() || $comment->user_id == Auth::user()->id)
+                            @if($comment->user_id == $post->user_id || $comment->user_id == Auth::user()->id)
+                                <form method="get" action="{{route('comment.edit', ['comment' => $comment->id])}}">
+                                {{ csrf_field() }}
+                                    <input class="btn btn-outline-primary" type="submit" value="Изменить">
+                                </form>
+                            @endif
+                            <form  method="post" action="{{route('comment.destroy', ['comment' => $comment->id])}}">
+                                @method('DELETE')
+                                {{ csrf_field() }}
+                                <input class="btn btn-outline-danger" type="submit" value="Удалить">
+                            </form>
+                        @endif
+                    @endif
                 </div>
             @endforeach
         </div>
