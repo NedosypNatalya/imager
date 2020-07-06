@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Post;
 use App\Image;
 use Validator;
+use HelperImage;
 
 class PostController extends BaseController
 {
@@ -47,16 +48,7 @@ class PostController extends BaseController
         $post->user()->associate(Auth::user());
         $post->save();
         $id_post = $post['id'];
-        foreach ($request->file() as $file) {
-            foreach ($file as $f) {
-                $model = new Image;
-                $name = $id_post.'_'.$f->getClientOriginalName();
-                $f->move(storage_path('app/public/images/'.$id_post), $name);
-                $model->title = $name;
-                $model->post_id = $id_post;
-                $model->save();
-            }
-        }
+        HelperImage::getImages($request->file(), $id_post);
         return $this->sendResponse($post->toArray(), 'Post created successfully.');
     }
     /**

@@ -16,6 +16,7 @@ use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use SoapBox\Formatter\Formatter;
 use Response;
+use HelperImage;
 
 class PostController extends Controller
 {
@@ -39,16 +40,7 @@ class PostController extends Controller
         $input = $request->all();
         $post = Post::create($input);
         $id_post = $post['id'];
-        foreach ($request->file() as $file) {
-            foreach ($file as $f) {
-                $model = new Image;
-                $name = $id_post.'_'.$f->getClientOriginalName();
-                $f->move(storage_path('app/public/images/'.$id_post), $name);
-                $model->title = $name;
-                $model->post_id = $id_post;
-                $model->save();
-            }
-        }
+        HelperImage::getImages($request->file(), $id_post);
         return redirect()->route('my_posts.index');
     }
 
@@ -81,17 +73,7 @@ class PostController extends Controller
         }
         $post = (new Post)->find($input['id']);
         $id_post = $post['id'];
-        foreach ($request->file() as $file) {
-            foreach ($file as $f) {
-                $model = new Image;
-                $name = $id_post.'_'.$f->getClientOriginalName();
-                $f->move(storage_path('app/public/images/'.$id_post), $name);
-                $model->title = $name;
-                $model->post_id = $id_post;
-                $model->save();
-            }
-        }
-
+        HelperImage::getImages($request->file(), $id_post);
         $post->title = $input['title'];
         $post->content = $input['content'];
         $post->save();

@@ -176,6 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\HelpersImagesLoaderProvider::class
 
     ],
 
@@ -229,7 +230,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Carbon' => 'Carbon\Carbon'
+        'Carbon' => 'Carbon\Carbon',
+        'HelperImage' => App\Helpers\HelperImage::class,
     ],
 
 ];

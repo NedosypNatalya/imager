@@ -31,14 +31,6 @@ class Dadata
         return $result;
     }
 
-  /*  public function suggestAddress($data) {
-        return $this->request($data, self::SUGGEST_ADDRESS);
-    }
-
-    public function suggestEmail($data) {
-        return $this->request($data, self::SUGGEST_EMAIL);
-    }*/
-
     public function suggestPostData($data, $category){
         return $this->request($data, $category);
     }
