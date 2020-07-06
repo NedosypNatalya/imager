@@ -10,7 +10,7 @@
 </head>
 <body>
     @include('components.header')
-    @include('components.url')
+    
     @yield('content')
     @include('components.footer')
 
