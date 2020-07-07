@@ -9,15 +9,19 @@
                 <p class="lead">{{$post->content}}</p>
             </div>
             @foreach($post->images as $image)
-                <img width="300px" src="../storage/images/{{$post->id}}/{{$image->title}}" alt="{{$image->title}}">
+                <img width="300px" src="../storage/images/{{$image->title}}" alt="{{$image->title}}">
             @endforeach
         </div>
         @if(Auth::user())
-        <form id="form-add-comment" method="post" action="{{ route('comment.store') }}">
+        <form id="form-add-comment" method="post" action="{{ route('comment.store') }}" enctype = 'multipart/form-data'>
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="text">Комментарий</label>
                 <textarea class="form-control" name="text" id="text" cols="30" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="file">Прикрепить изображение</label>
+                <input class="form-control-file" type="file" multiple name="images[]">
             </div>
             <div class="form-group">
                 <input post-id="{{ $post->id }}" id="store-comment" class="btn btn-primary" type="submit" value="Оставить комментарий">
@@ -28,6 +32,9 @@
             @foreach($post->comments as $comment)
                 <div class="alert alert-secondary" role="alert">
                     <a href="#" class="alert-link">{{ $comment->user->name }}</a>{{ $comment->text }}
+                    @foreach($comment->images as $image)
+                        <img src="../storage/images/{{$image->title}}" alt="{{$image->title}}">
+                    @endforeach
                     @if(!empty(Auth::user()))
                         @if($post->user == Auth::user() || $comment->user_id == Auth::user()->id)
                             @if($comment->user_id == $post->user_id || $comment->user_id == Auth::user()->id)

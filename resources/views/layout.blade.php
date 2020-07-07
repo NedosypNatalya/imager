@@ -54,22 +54,55 @@ $(document).ready(function() {
         }
         $(this).text(text);
     });
-
-
     
     $("#store-comment").click(function(e){
         e.preventDefault();
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
+
+        var formData = new FormData();
+        $.each($('#images').files, function(count, image) {
+            if(!image.type.match(/(.png)|(.jpeg)|(.jpg)|(.gif)$/i) || ($('#images')[0].files[count].size / 1024).toFixed(0) > 1524)  return false;
+            else {
+                formData.append("image" + count, image);
+                $.ajax({
+                    url: '/comment/store',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: formData,
+                   /* data: {
+                        _token: CSRF_TOKEN,
+                        text: $("#text").val(),
+                        post_id: $('#store-comment').attr('post-id'),
+                        images: formData
+                    },*/
+                    success: function(data) { 
+                        result = response.data;
+                        /*if(result){
+                            $("#comments-block").append(
+                            "<div class='alert alert-secondary' role='alert'>"+
+                                "<a href='#' class='alert-link'>"+result.user_name+"</a>"+result.text+"</div>");
+                        }*/
+                        console.log(result)
+                    }
+                })
+            }
+        })
+      /*  formData = new FormData();
+        $.each($('#images').find("input[type=file]"), function(index, file) {
+            var name = $(file).attr("name");
+            formData.append(name, iFiles.files[0]);
+        });*/
+        /*$.ajax({
             type: "POST",
             url: '/comment/store',
             data: {
-                _token: CSRF_TOKEN, 
+                _token: CSRF_TOKEN,
                 text: $("#text").val(),
-                post_id: $('#store-comment').attr('post-id')
+                post_id: $('#store-comment').attr('post-id'),
+                images: data
             },
             dataType: 'JSON',
-            success: function(response){
+            success: function(response, status, jqXHR){
                 result = response.data;
                 if(result){
                     $("#comments-block").append(
@@ -77,7 +110,7 @@ $(document).ready(function() {
                         "<a href='#' class='alert-link'>"+result.user_name+"</a>"+result.text+"</div>");
                 }
             }
-       });
+        });*/
     })
 
     $("#store-comment-edit-post").click(function(e){

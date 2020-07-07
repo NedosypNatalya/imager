@@ -15,7 +15,7 @@
                     <a href="{{route('allpost.show', ['post' => $post->id])}}" class="btn btn-outline-primary">Показать</a>
                     <a href="{{route('my_posts.show', ['my_post' => $post->id])}}" class="btn btn-outline-primary">Изменить</a>
                     @foreach($post->images as $image)
-                        <img width="100px" src="storage/images/{{$post->id}}/{{$image->title}}" alt="images">
+                        <img width="100px" src="storage/images/{{$image->title}}" alt="images">
                     @endforeach
                 </div>
             </div>

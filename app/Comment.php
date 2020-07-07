@@ -22,4 +22,9 @@ class Comment extends Model
         'created_at' => 'datetime:d-m-Y H:i',
         'updated_at' => 'datetime:d-m-Y H:i',
     ];
+
+    public function images()
+    {
+        return $this->morphMany('App\Image', 'table');
+    }
 }

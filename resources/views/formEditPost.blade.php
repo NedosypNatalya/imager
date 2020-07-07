@@ -43,7 +43,7 @@
             <button class="btn btn-danger" type="submit">Удалить пост</button>
         </form>
         @foreach($post->images as $image)
-            <img width="100px" src="../storage/images/{{$post->id}}/{{$image->title}}" alt="{{$image->title}}">
+            <img width="100px" src="../storage/images/{{$image->title}}" alt="{{$image->title}}">
             <form method="get" action="{{route('image_delete', ['my_post' => $post->id, 'image' => $image->id])}}">
                 <input class="btn btn-outline-danger" type="submit" value="Удалить">
             </form>

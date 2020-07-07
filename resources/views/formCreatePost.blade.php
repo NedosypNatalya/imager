@@ -7,6 +7,9 @@
     @foreach ($errors->all() as $error)
       <li>{{ $error }}</li>
     @endforeach
+    @if(isset($message))
+        <li>{{ $message }}</li>
+    @endif
     </ul>
   </div>
 @endif
@@ -26,9 +29,8 @@
             </div>
             <div class="form-group">
                 <label for="file">Прикрепить изображение</label>
-                <input class="form-control-file" type="file" multiple name="file[]">
+                <input id="images" class="form-control-file" type="file" multiple name="images[]">
             </div>
-            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
             <button class="btn btn-primary" type="submit">Загрузить</button>
         </form>
     </div>

@@ -14,10 +14,6 @@ class Post extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function images()
-    {
-        return $this->hasMany('App\Image', 'post_id');
-    }
     public function comments()
     {
         return $this->hasMany('App\Comment', 'post_id');
@@ -27,4 +23,9 @@ class Post extends Model
         'created_at' => 'datetime:d-m-Y H:i',
         'updated_at' => 'datetime:d-m-Y H:i',
     ];
+
+    public function images()
+    {
+        return $this->morphMany('App\Image', 'table');
+    }
 }

@@ -38,9 +38,20 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $post = Post::create($input);
-        $id_post = $post['id'];
-        HelperImage::getImages($request->file(), $id_post);
+        $validator = Validator::make($input, [
+            'title' => 'required|max:255',
+            'content' => 'required|max:4000',
+        ]);
+        if($validator->fails()){
+            return view('formCreatePost', ['message' => 'Validation Error.'.$validator->errors()]);       
+        }
+        $post = new Post;
+        $post->user()->associate(Auth::user());
+        $post->title = $input['title'];
+        $post->content = $input['content'];
+        $post->save();
+        $images = [];
+        HelperImage::getImages($request->images, $images, $post->id, 'App\Post');
         return redirect()->route('my_posts.index');
     }
 
