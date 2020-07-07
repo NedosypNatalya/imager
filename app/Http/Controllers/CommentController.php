@@ -18,7 +18,7 @@ class CommentController extends Controller
       //  $images = [];
       //  HelperImage::getImages($input['images'], $images, $comment->id, 'App\Comment');
         
-       
+       dd($_FILES);
         $response = array(
             'status' => 'success',
             'data' => [
@@ -29,7 +29,7 @@ class CommentController extends Controller
                 'message' => 'upload'
             ]
         );
-        return response()->json($response);
+       // return response()->json($response);
       
         /*$response = array(
             'status' => 'success',

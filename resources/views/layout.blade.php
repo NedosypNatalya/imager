@@ -64,7 +64,12 @@ $(document).ready(function() {
             if(!image.type.match(/(.png)|(.jpeg)|(.jpg)|(.gif)$/i) || ($('#images')[0].files[count].size / 1024).toFixed(0) > 1524)  return false;
             else {
                 formData.append("image" + count, image);
-                $.ajax({
+                jQuery.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
+                    }
+                });
+               /* $.ajax({
                     url: '/comment/store',
                     type: 'POST',
                     dataType: 'json',
@@ -74,17 +79,23 @@ $(document).ready(function() {
                         text: $("#text").val(),
                         post_id: $('#store-comment').attr('post-id'),
                         images: formData
-                    },*/
+                    },
                     success: function(data) { 
                         result = response.data;
-                        /*if(result){
+                        if(result){
                             $("#comments-block").append(
                             "<div class='alert alert-secondary' role='alert'>"+
                                 "<a href='#' class='alert-link'>"+result.user_name+"</a>"+result.text+"</div>");
-                        }*/
+                        }
                         console.log(result)
                     }
-                })
+                })*/
+                $.post("/comment/store", {
+                    data: formData,
+                    dataType: 'json'
+                })/*.done(function(data){
+                    console.log(data.message)
+                })*/
             }
         })
       /*  formData = new FormData();
