@@ -12,24 +12,31 @@ use HelperImage;
 class PostController extends BaseController
 {
     /**
-     * Display a listing of the resource.
+     * Display all posts.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $posts = Post::all()->where('user_id', '=', Auth::user()->id);
-        return $this->sendResponse($posts->toArray(), 'My posts retrieved successfully.');
+        $response = (new Post)->getFullPosts($posts);
+        return $this->sendResponse($response, 'My posts with images retrieved successfully.');
     }
+    /**
+     * Display posts of authorized user.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getAllPosts()
     {
         $posts = Post::all();
-        return $this->sendResponse($posts->toArray(), 'All posts retrieved successfully.');
+        $response = (new Post)->getFullPosts($posts);
+        return $this->sendResponse($response, 'All posts with images retrieved successfully.');
     }
     /**
-     * Store a newly created resource in storage.
+     * Store a new post.
      *
-     * @param  \App\Http\Requests\PostRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -40,19 +47,20 @@ class PostController extends BaseController
             'content' => 'required|max:4000',
         ]);
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return $this->sendError('Validation Error.', $validator->errors());
         }
         $post = new Post;
         $post->title = $input['title'];
         $post->content = $input['content'];
         $post->user()->associate(Auth::user());
         $post->save();
-        $id_post = $post['id'];
-        HelperImage::getImages($request->file(), $id_post);
-        return $this->sendResponse($post->toArray(), 'Post created successfully.');
+        $images = [];
+        if(isset($input['images'])) HelperImage::getImages($input['images'], $images,  $post->id, 'App\Post');
+        $response = (new Post)->getSingleFullPost($post);
+        return $this->sendResponse($response, 'Post created successfully.');
     }
     /**
-     * Display the specified resource.
+     * Display the post.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -63,13 +71,14 @@ class PostController extends BaseController
         if (is_null($post)) {
             return $this->sendError('Post not found.');
         }
-        return $this->sendResponse($post->toArray(), 'Post retrieved successfully.');
+        $response = (new Post)->getSingleFullPost($post);
+        return $this->sendResponse($response, 'Post retrieved successfully.');
     }
     /**
-     * Update the specified resource in storage.
+     * Update post.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  App\Post $post
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Post $post)
@@ -80,22 +89,28 @@ class PostController extends BaseController
             'content' => 'required|max:4000'
         ]);
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return $this->sendError('Validation Error.', $validator->errors());
         }
         $post->title = $input['title'];
         $post->content = $input['content'];
         $post->save();
-        return $this->sendResponse($post->toArray(), 'Post updated successfully.');
+        $images = [];
+        if(isset($input['images'])) HelperImage::getImages($input['images'], $images,  $post->id, 'App\Post');
+        $response = (new Post)->getSingleFullPost($post);
+        return $this->sendResponse($response, 'Post updated successfully.');
     }
     /**
-     * Remove the specified resource from storage.
+     * Delete post.
      *
-     * @param  int  $id
+     * @param  App\Post $post
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
     {
+        $response = (new Post)->getSingleFullPost($post);
+        $post->deletePostImages();
+        $post->deletePostComments();
         $post->delete();
-        return $this->sendResponse($post->toArray(), 'Post deleted successfully.');
+        return $this->sendResponse($response, 'Post deleted successfully.');
     }
 }

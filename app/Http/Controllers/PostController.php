@@ -43,7 +43,7 @@ class PostController extends Controller
             'content' => 'required|max:4000',
         ]);
         if($validator->fails()){
-            return view('formCreatePost', ['message' => 'Validation Error.'.$validator->errors()]);       
+            return view('formCreatePost', ['message' => 'Validation Error.'.$validator->errors()]);
         }
         $post = new Post;
         $post->user()->associate(Auth::user());
@@ -73,14 +73,14 @@ class PostController extends Controller
     }
 
     public function update(Request $request)
-    { 
+    {
         $input = $request->all();
         $validator = Validator::make($input, [
             'title' => 'required|max:255',
             'content' => 'required|max:4000'
         ]);
         if($validator->fails()){
-            return 'Validation Error.'.$validator->errors();       
+            return 'Validation Error.'.$validator->errors();
         }
         $post = (new Post)->find($input['id']);
         $id_post = $post['id'];

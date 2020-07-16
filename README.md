@@ -48,6 +48,17 @@
     }
 ```
 
+- /api/logout - выход<br>
+Заголовоки POST-запроса:<br>
+Accept - application/json<br>
+Authorization - Bearer token<br>
+Ответ:
+```
+    {
+        "message": "Unauthenticated."
+    }
+```
+
 - /api/all_posts - получение списка всех постов<br>
 Заголовок GET-запроса: Accept - application/json<br>
 Ответ:
@@ -56,16 +67,43 @@
         "success": true,
         "data": [
             {
-                "id": 1,
-                "title": "Заголовок",
-                "content": "Текст поста",
-                "user_id": 1,
-                "created_at": "",
-                "updated_at": ""
-            },
-            ...
+                "post": {
+                    "id": 1,
+                    "title": "1",
+                    "content": "1",
+                    "user_id": 1,
+                    "created_at": "07-07-2020 11:01",
+                    "updated_at": "07-07-2020 11:01"
+                },
+                "images": [
+                    {
+                        "id": 1,
+                        "title": "/storage/images/1234567890_image.jpg",
+                        "alt": "1234567890_image.jpg",
+                    },...
+                ],
+                "comments": [
+                    {
+                        "comment": {
+                            "id": 20,
+                            "text": "Комментарий",
+                            "post_id": 1,
+                            "user_id": 1,
+                            "created_at": null,
+                            "updated_at": null
+                        },
+                        "images": [
+                            {
+                                "id": 15,
+                                "link": "/storage/images/1234567890_image.jpg",
+                                "alt": "1234567890_image.jpg"
+                            },...
+                        ]
+                    },...
+                ]
+            },...
         ],
-        "message": "All posts retrieved successfully."
+        "message": "All posts with images retrieved successfully."
     }
 ```
 
@@ -79,14 +117,22 @@ Authorization - Bearer token<br>
         "success": true,
         "data": [
             {
-                "id": 1,
-                "title": "Заголовок",
-                "content": "Текст поста",
-                "user_id": 1,
-                "created_at": "03-07-2020 12:35",
-                "updated_at": "03-07-2020 12:35"
-            },
-            ...
+                "post": {
+                    "id": 1,
+                    "title": "1",
+                    "content": "1",
+                    "user_id": 1,
+                    "created_at": "07-07-2020 11:01",
+                    "updated_at": "07-07-2020 11:01"
+                },
+                "images": [
+                    {
+                        "id": 1,
+                        "title": "/storage/images/1234567890_image.jpg",
+                        "alt": "1234567890_image.jpg",
+                    },...
+                ]
+            },...
         ],
         "message": "My posts retrieved successfully."
     }
@@ -97,23 +143,36 @@ Authorization - Bearer token<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
 Тело запроса:
-```
-    {
-        "title": "Заголовок",
-        "content": "Текст"
-    }
-```
+<img src="images-readme/post_create.PNG" width="300"><br>
 Ответ:
 ```
     {
         "success": true,
         "data": {
-            "title": "Заголовок",
-            "content": "Текст",
-            "user_id": 1,
-            "updated_at": "03-07-2020 12:35",
-            "created_at": "03-07-2020 12:35",
-            "id": 1
+            "post": {
+                "title": "Новый пост",
+                "content": "Текст",
+                "user_id": 2,
+                "updated_at": "16-07-2020 07:51",
+                "created_at": "16-07-2020 07:51",
+                "id": 25,
+                "user": {
+                    "id": 2,
+                    "name": "Иван",
+                    "email": "email@email.com",
+                    "email_verified_at": null,
+                    "created_at": "15-07-2020 08:27",
+                    "updated_at": "15-07-2020 08:27",
+                    "address": "Тамбов"
+                }
+            },
+            "images": [
+                {
+                    "id": 16,
+                    "link": "/storage/images/1234567890_image.jpg",
+                    "alt": "1234567890_image.jpg"
+                },...
+            ]
         },
         "message": "Post created successfully."
     }
@@ -128,39 +187,51 @@ Authorization - Bearer token<br>
     {
         "success": true,
         "data": {
-            "title": "Заголовок",
-            "content": "Текст",
-            "user_id": 1,
-            "updated_at": "03-07-2020 12:35",
-            "created_at": "03-07-2020 12:35",
-            "id": 1
+                "id": 23,
+                "title": "Заголовок",
+                "content": "Текст",
+                "user_id": 2,
+                "created_at": "16-07-2020 06:50",
+                "updated_at": "16-07-2020 07:44"
+            },
+            "images": [
+                {
+                    "id": 14,
+                    "link": "/storage/images/1234567890_image.jpg",
+                    "alt": "1234567890_image.jpg"
+                },...
+            ]
         },
         "message": "Post retrieved successfully."
     }
 ```
 
 - /api/posts/update - изменение поста<br>
-Заголовоки PUT-запроса:<br>
+Заголовоки POST-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
 Тело запроса:
-```
-    {
-        "title": "Новый заголовок",
-        "content": "Новый текст"
-    }
-```
+<img src="images-readme/post_update.PNG" width="300"><br>
 Ответ:
 ```
     {
         "success": true,
         "data": {
-            "title": "Заголовок",
-            "content": "Текст",
-            "user_id": 1,
-            "updated_at": "03-07-2020 12:35",
-            "created_at": "03-07-2020 12:35",
-            "id": 1
+            "post": {
+                "id": 23,
+                "title": "Новый заголовок",
+                "content": "Текст",
+                "user_id": 2,
+                "created_at": "16-07-2020 06:50",
+                "updated_at": "16-07-2020 07:44"
+            },
+            "images": [
+                {
+                    "id": 14,
+                    "link": "/storage/images/1234567890_new.jpg",
+                    "alt": "1234567890_new.jpg"
+                },...
+            ]
         },
         "message": "Post updated successfully."
     }
@@ -175,19 +246,49 @@ Authorization - Bearer token<br>
     {
         "success": true,
         "data": {
-            "title": "Заголовок",
-            "content": "Текст",
-            "user_id": 1,
-            "updated_at": "03-07-2020 12:35",
-            "created_at": "03-07-2020 12:35",
-            "id": 1
+            "post": {
+                "id": 20,
+                "title": "Заголовок",
+                "content": "Текст",
+                "user_id": 2,
+                "created_at": "15-07-2020 09:39",
+                "updated_at": "15-07-2020 09:39"
+            },
+            "images": [
+                {
+                    "id": 9,
+                    "link": "/storage/images/1234567890_image.jpg",
+                    "alt": "1234567890_image.jpg"
+                },...
+            ]
         },
         "message": "Post deleted successfully."
     }
 ```
 
+-/api/images/ - удаление изображения<br>
+Заголовок DELETE-запроса:<br>
+Accept - application/json<br>
+Ответ:
+```
+    {
+        "success": true,
+        "data": {
+            "id": 7,
+            "title": "1234567890_image.jpg",
+            "user_id": 2,
+            "table_id": 14,
+            "table_type": "App\\Post",
+            "created_at": "15-07-2020 09:13",
+            "updated_at": "15-07-2020 09:13"
+        },
+        "message": "Image deleted successfully."
+    }
+```
+
+
 - /api/comments - просмотр всех комментариев<br>
-Заголовоки GET-запроса:<br>
+Заголовок GET-запроса:<br>
 Accept - application/json<br>
 Ответ:
 ```
@@ -195,14 +296,22 @@ Accept - application/json<br>
     "success": true,
     "data": [
         {
-            "id": 1,
-            "text": "Текст комментария",
-            "post_id": 1,
-            "user_id": 1,
-            "created_at": "03-07-2020 12:35",
-            "updated_at": "03-07-2020 12:35"
-        },
-        ...
+            "comment": {
+                "id": 20,
+                "text": "Комментарий",
+                "post_id": 25,
+                "user_id": 1,
+                "created_at": "15-07-2020 09:13",
+                "updated_at": "15-07-2020 09:13"
+            },
+            "images": [
+                {
+                    "id": 15,
+                    "link": "/storage/images/1234567890_image.jpg",
+                    "alt": "1234567890_image.jpg"
+                }
+            ]
+        },...
     ],
     "message": "All comments retrieved successfully."
 }
@@ -217,16 +326,25 @@ Accept - application/json<br>
     "success": true,
     "data": [
         {
-            "id": 1,
-            "text": "Текст комментария",
-            "post_id": 1,
-            "user_id": 1,
-            "created_at": "03-07-2020 12:35",
-            "updated_at": "03-07-2020 12:35"
+            "comment": {
+                "id": 20,
+                "text": "Комментарий",
+                "post_id": 25,
+                "user_id": 1,
+                "created_at": "15-07-2020 09:13",
+                "updated_at": "15-07-2020 09:13"
+            },
+            "images": [
+                {
+                    "id": 15,
+                    "link": "/storage/images/1234567890_image.jpg",
+                    "alt": "1234567890_image.jpg"
+                }
+            ]
         },
         ...
     ],
-    "message": "Comments of post - 15(id поста) retrieved successfully.."
+    "message": "Comments of post - 25 retrieved successfully.."
 }
 ```
 
@@ -235,30 +353,36 @@ Accept - application/json<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
 Тело запроса:
-```
-    {
-        "text": "Текст комментария"
-    }
-```
+<img src="images-readme/comment_create.PNG" width="300"><br>
 Ответ:
 ```
     {
         "success": true,
-        "data": {
-            "text": "Текст комментария",
-            "post_id": "1",
-            "user_id": 1,
-            "updated_at": "03-07-2020 12:35",
-            "created_at": "03-07-2020 12:35",
-            "id": 55,
-            "user": {
-                "id": 1,
-                "name": "Иван",
-                "email": "email@email.com",
-                "email_verified_at": null,
-                "created_at": "03-07-2020 12:35",
-                "updated_at": "03-07-2020 12:35",
-                "address": "Тамбов"
+            "data": {
+                "comment": {
+                "text": "Комментарий",
+                "post_id": "25",
+                "user_id": 2,
+                "updated_at": "16-07-2020 10:27",
+                "created_at": "16-07-2020 10:27",
+                "id": 24,
+                "user": {
+                    "id": 2,
+                    "name": "Иван",
+                    "email": "email@email.com",
+                    "email_verified_at": null,
+                    "created_at": "15-07-2020 08:27",
+                    "updated_at": "15-07-2020 08:27",
+                    "address": "Тамбов"
+                }
+            },
+            "images": [
+                {
+                    "id": 19,
+                    "link": "/storage/images/1234567890_image.jpg",
+                    "alt": "1234567890_image.jpg"
+                },...
+            ]
             }
         },
         "message": "Comment created successfully."

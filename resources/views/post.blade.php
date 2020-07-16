@@ -21,7 +21,15 @@
             </div>
             <div class="form-group">
                 <label for="file">Прикрепить изображение</label>
-                <input class="form-control-file" type="file" multiple name="images[]">
+                <input id="images" class="form-control-file" type="file" multiple name="images[]">
+                <ul id="uploadImagesList">
+                    <li class="item template">
+                        <span class="img-wrap">
+                            <img src="image.jpg" alt="">
+                        </span>
+                        <span class="delete-link" title="Удалить">Удалить</span>
+                    </li>
+                </ul>
             </div>
             <div class="form-group">
                 <input post-id="{{ $post->id }}" id="store-comment" class="btn btn-primary" type="submit" value="Оставить комментарий">

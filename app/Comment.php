@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Image;
 
 class Comment extends Model
 {
@@ -26,5 +27,38 @@ class Comment extends Model
     public function images()
     {
         return $this->morphMany('App\Image', 'table');
+    }
+
+    public function getFullComments($comments){
+        $response = [];
+        foreach($comments as $index => $comment){
+            $response[$index] = $this->getSingleFullComment($comment);
+        }
+        return $response;
+    }
+
+    public function getSingleFullComment($comment){
+        $response = [];
+        $response['comment'] = $comment->toArray();
+        $images = [];
+        foreach($comment->images as $index => $image){
+            $images[$index]['id'] = $image->id;
+            $images[$index]['link'] = '/storage/images/'.$image->title;
+            $images[$index]['alt'] = $image->title;
+        }
+        $response['images'] = $images;
+        return $response;
+    }
+
+    public function deleteComments($post){
+        foreach($post->comments as $comment){
+            (new Image)->deleteImages($comment);
+            $comment->delete();
+        }
+    }
+
+    public function deleteSingleComment(){
+        (new Image)->deleteImages($this);
+        $this->delete();
     }
 }

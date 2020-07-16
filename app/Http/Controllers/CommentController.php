@@ -8,27 +8,47 @@ use HelperImage;
 
 class CommentController extends Controller
 {
+
+    public function showImagesCommentForm(Request $request){
+        foreach($_FILES as $image) {
+            $count++;
+            $array[$count] = $image['name'];
+        }
+        $json_data = array ('srcPart' => $array, 'lengthArr' => $count, 'state' => "Image success upload",);
+        echo json_encode($json_data);
+    }
+
+
     public function store(Request $request){
-      /*  $input = $request->all();
-        $comment = new Comment;
+        $input = $request->all();
+       // $text = $input['text'];
+     /*   $comment = new Comment;
         $comment->text = $input['text'];
         $comment->user()->associate(Auth::user());
         $comment->post()->associate($input['post_id']);*/
       //  $comment->save();
       //  $images = [];
       //  HelperImage::getImages($input['images'], $images, $comment->id, 'App\Comment');
-        
-       dd($_FILES);
+      $array = array();
+      $count = 0;
+      foreach($_FILES as $image) {
+          $count++;
+          $array[$count] = $image['name'];
+      }
+      $json_data = array ('srcPart' => $array, 'lengthArr' => $count, 'state' => "success");
+    // $json_data = array($request);
+      echo json_encode($json_data);
+ /*
         $response = array(
             'status' => 'success',
             'data' => [
-                /*'text' => $comment->text,
+                'text' => $comment->text,
                 'user_name' => $comment->user->name,
                 'comment_id' => $comment->id,
-                'images' => $images*/
+                'images' => $images
                 'message' => 'upload'
             ]
-        );
+        );*/
        // return response()->json($response);
       
         /*$response = array(

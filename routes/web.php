@@ -32,6 +32,7 @@ Route::middleware('auth:web')->group( function () {
     Route::resource('/comment', 'CommentController')->except(['show', 'store']);
     Route::get('/comment/{comment}/edit', 'CommentController@edit')->name('comment.edit');
     Route::get('/comment/{comment}/delete', 'CommentController@destroy')->name('comment.delete');
+    Route::post('/comment/images', 'CommentController@showImagesCommentForm')->name('comment.images');
 });
 
 Route::get('/register', 'RegisterController@getRegisterForm')->name('register_form');

@@ -10,7 +10,7 @@
                     <p class="card-text">{{ $post->content }}</p>
                     <a href="{{route('allpost.show', ['post' => $post->id])}}" class="btn btn-outline-primary">Показать</a>
                     @foreach($post->images as $image)
-                        <img width="100px" src="storage/images/{{$image->title}}" alt="images">
+                        <img width="100px" src="/storage/images/{{$image->title}}" alt="images">
                     @endforeach
                 </div>
             </div>
@@ -20,5 +20,5 @@
             Пусто
     @endif
 </div>
-    
+
 @endsection

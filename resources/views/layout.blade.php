@@ -55,55 +55,10 @@ $(document).ready(function() {
         $(this).text(text);
     });
     
-    $("#store-comment").click(function(e){
+  /*  $("#store-comment").click(function(e){
         e.preventDefault();
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-        var formData = new FormData();
-        $.each($('#images').files, function(count, image) {
-            if(!image.type.match(/(.png)|(.jpeg)|(.jpg)|(.gif)$/i) || ($('#images')[0].files[count].size / 1024).toFixed(0) > 1524)  return false;
-            else {
-                formData.append("image" + count, image);
-                jQuery.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
-                    }
-                });
-               /* $.ajax({
-                    url: '/comment/store',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: formData,
-                   /* data: {
-                        _token: CSRF_TOKEN,
-                        text: $("#text").val(),
-                        post_id: $('#store-comment').attr('post-id'),
-                        images: formData
-                    },
-                    success: function(data) { 
-                        result = response.data;
-                        if(result){
-                            $("#comments-block").append(
-                            "<div class='alert alert-secondary' role='alert'>"+
-                                "<a href='#' class='alert-link'>"+result.user_name+"</a>"+result.text+"</div>");
-                        }
-                        console.log(result)
-                    }
-                })*/
-                $.post("/comment/store", {
-                    data: formData,
-                    dataType: 'json'
-                })/*.done(function(data){
-                    console.log(data.message)
-                })*/
-            }
-        })
-      /*  formData = new FormData();
-        $.each($('#images').find("input[type=file]"), function(index, file) {
-            var name = $(file).attr("name");
-            formData.append(name, iFiles.files[0]);
-        });*/
-        /*$.ajax({
+        $.ajax({
             type: "POST",
             url: '/comment/store',
             data: {
@@ -121,8 +76,59 @@ $(document).ready(function() {
                         "<a href='#' class='alert-link'>"+result.user_name+"</a>"+result.text+"</div>");
                 }
             }
-        });*/
-    })
+        });
+    })*/
+
+
+/*$('#images').on('change', function() {
+//$("#store-comment").click(function(e){
+        //e.preventDefault();
+        var formData = new FormData();
+        $.each($('#images')[0].files, function(index, image) {
+
+            if(!image.type.match(/(.png)|(.jpeg)|(.jpg)|(.gif)$/i) || ($('#images')[0].files[index].size / 1024).toFixed(0) > 1524){
+                return false;
+            }
+            else {
+                formData.append("image" + index, image);
+                if(index == $('#images')[0].files.length - 1) {
+                    console.log(formData)
+                    //var query = 0;
+                    jQuery.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: '/comment/store',
+                        type: 'POST',
+                        contentType: false,
+                        processData: false,
+                        dataType: 'json',
+                        data: formData,
+                        success: function(data) { 
+                            if(data['state'] == "success") {
+                                console.log(data)
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    });*/
+    var maxFileSize = 2 * 1024 * 1024;
+    var queue = {};
+    var form = $('form#uploadImages');
+    var imagesList = $('#uploadImagesList');
+
+
+
+
+
+
+
+
+
 
     $("#store-comment-edit-post").click(function(e){
         e.preventDefault();

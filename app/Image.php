@@ -18,8 +18,19 @@ class Image extends Model
         return $this->belongsTo('App\User');
     }
 
+    protected $casts = [
+        'created_at' => 'datetime:d-m-Y H:i',
+        'updated_at' => 'datetime:d-m-Y H:i',
+    ];
+
     public function table()
     {
         return $this->morphTo();
+    }
+
+    public function deleteImages($parent){
+        foreach($parent->images as $image){
+            $image->delete();
+        }
     }
 }
