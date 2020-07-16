@@ -131,6 +131,25 @@ Authorization - Bearer token<br>
                         "title": "/storage/images/1234567890_image.jpg",
                         "alt": "1234567890_image.jpg",
                     },...
+                ],
+                "comments": [
+                    {
+                        "comment": {
+                            "id": 20,
+                            "text": "Комментарий",
+                            "post_id": 1,
+                            "user_id": 1,
+                            "created_at": null,
+                            "updated_at": null
+                        },
+                        "images": [
+                            {
+                                "id": 15,
+                                "link": "/storage/images/1234567890_image.jpg",
+                                "alt": "1234567890_image.jpg"
+                            },...
+                        ]
+                    },...
                 ]
             },...
         ],
@@ -143,7 +162,14 @@ Authorization - Bearer token<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
 Тело запроса:
-<img src="images-readme/post_create.PNG" width="300"><br>
+Тело запроса:
+```
+    {
+        "title": "Новый пост",
+        "content": "Текст",
+        "images": []
+    }
+```
 Ответ:
 ```
     {
@@ -172,13 +198,14 @@ Authorization - Bearer token<br>
                     "link": "/storage/images/1234567890_image.jpg",
                     "alt": "1234567890_image.jpg"
                 },...
-            ]
+            ], 
+            "comments" : []
         },
         "message": "Post created successfully."
     }
 ```
 
-- /api/posts/{post} - просмотр поста<br>
+- /api/posts/1 - просмотр поста (1 - id поста)<br>
 Заголовоки GET-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -200,18 +227,44 @@ Authorization - Bearer token<br>
                     "link": "/storage/images/1234567890_image.jpg",
                     "alt": "1234567890_image.jpg"
                 },...
+            ],
+            "comments" : [
+                {
+                        "comment": {
+                            "id": 20,
+                            "text": "Комментарий",
+                            "post_id": 23,
+                            "user_id": 1,
+                            "created_at": null,
+                            "updated_at": null
+                        },
+                        "images": [
+                            {
+                                "id": 15,
+                                "link": "/storage/images/1234567890_image.jpg",
+                                "alt": "1234567890_image.jpg"
+                            },...
+                        ]
+                    },...
             ]
         },
         "message": "Post retrieved successfully."
     }
 ```
 
-- /api/posts/update - изменение поста<br>
+- /api/posts/1/update - изменение поста (1 - id поста)<br>
 Заголовоки POST-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
 Тело запроса:
-<img src="images-readme/post_update.PNG" width="300"><br>
+Тело запроса:
+```
+    {
+        "title": "Новый заголовок",
+        "content": "Текст",
+        "images": []
+    }
+```
 Ответ:
 ```
     {
@@ -231,13 +284,32 @@ Authorization - Bearer token<br>
                     "link": "/storage/images/1234567890_new.jpg",
                     "alt": "1234567890_new.jpg"
                 },...
+            ],
+            "comments" : [
+                {
+                        "comment": {
+                            "id": 20,
+                            "text": "Комментарий",
+                            "post_id": 23,
+                            "user_id": 1,
+                            "created_at": null,
+                            "updated_at": null
+                        },
+                        "images": [
+                            {
+                                "id": 15,
+                                "link": "/storage/images/1234567890_image.jpg",
+                                "alt": "1234567890_image.jpg"
+                            },...
+                        ]
+                    },...
             ]
         },
         "message": "Post updated successfully."
     }
 ```
 
-- /api/posts/delete - удаление поста<br>
+- /api/posts/1 - удаление поста  (1 - id поста)<br>
 Заголовоки DELETE-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -260,13 +332,32 @@ Authorization - Bearer token<br>
                     "link": "/storage/images/1234567890_image.jpg",
                     "alt": "1234567890_image.jpg"
                 },...
+            ],
+            "comments" : [
+                {
+                        "comment": {
+                            "id": 20,
+                            "text": "Комментарий",
+                            "post_id": 23,
+                            "user_id": 1,
+                            "created_at": null,
+                            "updated_at": null
+                        },
+                        "images": [
+                            {
+                                "id": 15,
+                                "link": "/storage/images/1234567890_image.jpg",
+                                "alt": "1234567890_image.jpg"
+                            },...
+                        ]
+                    },...
             ]
         },
         "message": "Post deleted successfully."
     }
 ```
 
--/api/images/ - удаление изображения<br>
+-/api/images/1 - удаление изображения (1 - id изображения)<br>
 Заголовок DELETE-запроса:<br>
 Accept - application/json<br>
 Ответ:
@@ -317,7 +408,7 @@ Accept - application/json<br>
 }
 ```
 
-- /api/posts/{post}/comments - просмотр комментариев определённого поста<br>
+- /api/posts/1/comments - просмотр комментариев определённого поста  (1 - id поста)<br>
 Заголовоки GET-запроса:<br>
 Accept - application/json<br>
 Ответ:
@@ -348,12 +439,18 @@ Accept - application/json<br>
 }
 ```
 
-- /api/posts/{post}/comment - создание комментария<br>
+- /api/posts/1/comment - создание комментария  (1 - id поста)<br>
 Заголовоки POST-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
 Тело запроса:
-<img src="images-readme/comment_create.PNG" width="300"><br>
+Тело запроса:
+```
+    {
+        "text": "Новый текст комментария",
+        "images": []
+    }
+```
 Ответ:
 ```
     {
@@ -389,14 +486,15 @@ Authorization - Bearer token<br>
     }
 ```
 
-- /api/posts/{post}/comment/update - изменение комментария<br>
-Заголовоки PUT-запроса:<br>
+- /api/posts/1/comment/2/update - изменение комментария  (1 - id поста, 2 - id комментария)<br>
+Заголовоки POST-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
 Тело запроса:
 ```
     {
-        "text": "Новый текст комментария"
+        "text": "Новый текст комментарий",
+        "images": []
     }
 ```
 Ответ:
@@ -404,27 +502,41 @@ Authorization - Bearer token<br>
     {
        "success": true,
         "data": {
-            "text": "Новый текст комментария",
-            "post_id": "1",
-            "user_id": 1,
-            "updated_at": "03-07-2020 12:35",
-            "created_at": "03-07-2020 12:35",
-            "id": 55,
-            "user": {
-                "id": 1,
-                "name": "Иван",
-                "email": "email@email.com",
-                "email_verified_at": null,
-                "created_at": "03-07-2020 12:35",
-                "updated_at": "03-07-2020 12:35",
-                "address": "Тамбов"
-            }
+            "comment": {
+                "id": 34,
+                "text": "Новый текст комментарий",
+                "post_id": 35,
+                "user_id": 2,
+                "created_at": "16-07-2020 14:45",
+                "updated_at": "16-07-2020 14:46",
+                "user": {
+                    "id": 2,
+                    "name": "Vasya",
+                    "email": "email@email.com",
+                    "email_verified_at": null,
+                    "created_at": "15-07-2020 08:27",
+                    "updated_at": "15-07-2020 08:27",
+                    "address": "Тамбов"
+                }
+            },
+            "images": [
+                {
+                    "id": 37,
+                    "link": "/storage/images/1594910744_new.jpg",
+                    "alt": "1594910744_new.jpg"
+                },
+                {
+                    "id": 38,
+                    "link": "/storage/images/1594910785_img2.jpg",
+                    "alt": "1594910785_img2.jpg"
+                }
+            ]
         },
         "message": "Comment update successfully."
     }
 ```
 
-- /api/posts/{post}/comment/delete - удаление комментария<br>
+- /api/posts/1/comment/2 - удаление комментария (1 - id поста, 2 - id комментария)<br>
 Заголовоки DELETE-запроса:<br>
 Accept - application/json<br>
 Authorization - Bearer token<br>
@@ -432,22 +544,35 @@ Authorization - Bearer token<br>
 ```
     {
        "success": true,
-        "data": {
-            "text": "Новый текст комментария",
-            "post_id": "1",
-            "user_id": 1,
-            "updated_at": "03-07-2020 12:35",
-            "created_at": "03-07-2020 12:35",
-            "id": 55,
-            "user": {
-                "id": 1,
-                "name": "Иван",
-                "email": "email@email.com",
-                "email_verified_at": null,
-                "created_at": "03-07-2020 12:35",
-                "updated_at": "03-07-2020 12:35",
-                "address": "Тамбов"
-            }
+        "data": "comment": {
+                "id": 34,
+                "text": "Новый текст комментарий",
+                "post_id": 35,
+                "user_id": 2,
+                "created_at": "16-07-2020 14:45",
+                "updated_at": "16-07-2020 14:46",
+                "user": {
+                    "id": 2,
+                    "name": "Vasya",
+                    "email": "email@email.com",
+                    "email_verified_at": null,
+                    "created_at": "15-07-2020 08:27",
+                    "updated_at": "15-07-2020 08:27",
+                    "address": "Тамбов"
+                }
+            },
+            "images": [
+                {
+                    "id": 37,
+                    "link": "/storage/images/1594910744_new.jpg",
+                    "alt": "1594910744_new.jpg"
+                },
+                {
+                    "id": 38,
+                    "link": "/storage/images/1594910785_img2.jpg",
+                    "alt": "1594910785_img2.jpg"
+                }
+            ]
         },
         "message": "Comment delete successfully."
     }
