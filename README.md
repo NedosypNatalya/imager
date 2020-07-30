@@ -55,7 +55,9 @@ Authorization - Bearer token<br>
 Ответ:
 ```
     {
-        "message": "Unauthenticated."
+        "success": true,
+        "data": "success",
+        "message": "User successfully logged out."
     }
 ```
 
