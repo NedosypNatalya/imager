@@ -17,6 +17,6 @@ class LogoutController extends BaseController
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
-        return $this->sendResponse('User successfully logged out.');
+        return $this->sendResponse('success', 'User successfully logged out.');
     }
 }
